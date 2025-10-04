@@ -8,7 +8,7 @@ public class NumberTriangleTest {
 
     // this is testing that aliasing exists between
     // mt.left.right and mt.right.left
-    @Test
+    @org.junit.Test
     public void aliasingTree() throws IOException {
 
         NumberTriangle mt = NumberTriangle.loadTriangle("input_tree.txt");
