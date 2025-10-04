@@ -123,28 +123,38 @@ public class NumberTriangle {
         // are more convenient to work with when reading the file contents.
         InputStream inputStream = NumberTriangle.class.getClassLoader().getResourceAsStream(fname);
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-
-
-        // TODO define any variables that you want to use to store things
-
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
-
+        java.util.List<NumberTriangle> prev = null;
         String line = br.readLine();
         while (line != null) {
-
             // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
-
-            // TODO process the line
-
+            line = line.trim();
+            if (!line.isEmpty()) {
+                String[] tokens = line.split("\\s+");
+                java.util.List<NumberTriangle> curr = new java.util.ArrayList<>(tokens.length);
+                for (String t : tokens) {
+                    curr.add(new NumberTriangle(Integer.parseInt(t)));
+                }
+                if (top == null) {
+                    top = curr.get(0);
+                }
+                if (prev != null) {
+                    for (int i = 0; i < prev.size(); i++) {
+                        prev.get(i).setLeft(curr.get(i));
+                        prev.get(i).setRight(curr.get(i + 1));
+                    }
+                }
+                prev = curr;
+            }
             //read the next line
             line = br.readLine();
         }
         br.close();
         return top;
     }
+
 
     public static void main(String[] args) throws IOException {
 
